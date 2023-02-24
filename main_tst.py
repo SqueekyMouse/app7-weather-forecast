@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.express as px
-from backend import get_data
 #commit: plotly: plot fake data dynamically Sec32
 
 st.title('Weather forecast for the next days')
@@ -11,9 +10,15 @@ option=st.selectbox('Select data to view',
                     ('Temparature','Sky'))
 st.subheader(f'{option} for the next {days} days in {place}')
 
-data=get_data(place,days,option)
+def get_data(numdays):
+    # x and y shd be arrays of same size!!!
+    dates=['2022-25-10','2022-26-10','2022-27-10']
+    temperatures=[10,11,15]
+    # make the fig dynamic!!!
+    temperatures=[numdays*i for i in temperatures]
+    return(dates,temperatures)
 
-d,t=get_data(place)
+d,t=get_data(days)
 
 # x and y shd be arrays of same size!!!
 figure=px.line(x=d,y=t,labels={'x':'Dates','y':'Temparature (C)'})
